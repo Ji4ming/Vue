@@ -1,0 +1,264 @@
+<!--VueNotes_Ji4ming_20200608-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VueNotes_Ji4ming</title>
+
+    <!-- style -->
+    <style>
+        p.setfontcolorblue
+        {
+            color:blue;
+        }
+        .active {
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+        .text-danger {
+            background: red;
+        }
+    </style>
+
+    <!-- css style link(generally used) -->
+    <!-- <link rel="xxxxxxx" href="./css/indexxxxx.css"> -->
+
+</head>
+<body>
+    <!-- Vue usage -->
+    <div id="app">
+
+        <font color="red">- output message</font><br>
+        message1 = {{ message1 }}
+        <!-- usage of class -->
+        <p class="setfontcolorblue"> message2 = {{ message2 }} </p>
+        <p> message3 = {{ message3 }} </p>
+        <p> message4 = {{ message4 }} </p><br>
+
+        <font color="red">- output message by using dot '.'</font><br>
+        <p> message2.instance1 = {{ message2.instance1 }} </p>
+        <p> message2.instance2 = {{ message2.instance2 }} </p>
+        <p> message2.instance3 = {{ message2.instance3 }} </p><br>
+
+        <font color="red">- output message by using square brackets '[]' </font><br>
+        <p> message3[0] = {{ message3[0]}} </p>
+        <p> message3[1] = {{ message3[1]}} </p>
+        <p> message3[2] = {{ message3[2]}} </p>
+        <p> message4[0] = {{ message4[0]}} </p><br>
+
+        <font color="red">- output message by using both dot and square brackets '.[]' </font><br>
+        <p> message2.instance3[0] = {{ message2.instance3[0] }} </p>
+        <p> message2.instance3[1] = {{ message2.instance3[1] }} </p>
+        <p> message2.instance3[2] = {{ message2.instance3[2] }} </p><br>
+
+        <font color="red">- usage of "v-text" </font><br>
+        <p v-text="message1"> no text output </p>
+        <p v-text="message1+' -> this is message1'"> no text output </p>
+        <p> {{ message1 + ' -> this is message1 as well'}} text output here </p><br>
+
+        <font color="red">- usage of "v-html" </font><br>
+        <p v-text="message5"> no text output </p>
+        <p v-html="message5"> no text output </p><br>
+
+        <font color="red">- usage of "v-on" on mouse click </font><br>
+        <input type="button" value="v-on" v-on:click="von1">
+        <input type="button" value="v-on_shorter" @click="von1">
+        <input type="button" value="v-on_shorter_dblclick" @dblclick="von1">
+        <p @click="von2"> {{ message6 }} </p>
+        <font color="red">- usage of "v-on" on keyboard input, press 'enter' after typing</font><br>
+        <input type="text"  @keyup.enter="von3(1, 'string1')"><br><br>
+
+        <font color="red">- usage of "v-show" -> click the button *frequently switch conditions -> use v-show</font><br>
+        <input type="button" value="v-show_switch" @click="changeIsShow"><br>
+        <img v-show="isShow" src="pig1.jpg" alt=""/><br><br>
+
+        <font color="red">- usage of "v-if, v-elseif, v-else" </font><br>
+        <img v-if="isShow" src="pig1.jpg" alt=""/><br>
+        <p v-if="isShow"> is show </p>
+        <p v-else> is not show </p><br>
+        <!-- <p v-elseif> show case </p> -->
+
+        <font color="red">- usage of "v-bind" -> title used </font><br>
+        <img v-bind:src="imgSrc" title="title" alt=""/><br>
+        <img :src="imgSrc" title="title" alt=""/><br>     <!-- generally used -->
+        <input type="button" value="v-bind_switch" @click="changeImgIndex"><br>
+        <img :src="imgArr[imgIndex]" alt=""/><br><br>
+        <font color="red">- squares are influenced by the value of isShow </font><br>
+        <p v-bind:class="{ 'active': isShow }"></p>    <!-- v-bind:class -->
+        <p v-bind:class="{ 'active': isShow, 'text-danger': isShow }"></p>     <!-- v-bind:multiple_class -->
+        <p v-bind:class="[activeClass, errorClass]"></p>        <!-- same as last line -->
+        <p v-bind:class="classObject"></p>    <!-- v-bind data -->
+        <p v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"> v-bind style </p>
+        <p v-bind:style="styleObject"> v-bind style in data </p><br>
+        <!-- [] usage is same as instance above -->
+
+        <font color="red">- usage of "v-for" </font><br>
+        <ul>
+            <li v-for="item in message3"> v-for_test:{{ item }}  </li>
+        </ul>
+        <ul>
+            <li v-for="(item,index) in message3"> {{ index + 1 }} v-for_test: {{ item }}  </li>
+        </ul>
+        <input type="button" value="v-for_addItem" @click="addItemInArr"><br>
+        <input type="button" value="v-for_removeheaderItem" @click="removeItemInArr"><br><br>
+
+        <font color="red">- usage of "v-model" </font><br> <!-- two-way binding 双向绑定 -->
+        <p> message1 = {{ message1 }} </p>
+        <input type="button" value="v-model_setMessage" @click="setMessage"><br>
+        <input type="text=" v-model="message1" @keyup.enter="getMessage"><br><br>
+
+        <font color="red">- TODO: AJAX </font><br><br>
+
+        <font color="red">- usage of "watch" </font><br>
+        kilometers : <input type = "text" v-model = "kilometers">
+        meters : <input type = "text" v-model = "meters">
+
+    </div>
+
+    <!--vue.js-->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!--axios.js-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- watch test -->
+    <!-- <p id="info"></p> -->
+
+    <!-- var test -->
+    <script>
+        var app = new Vue({
+            el:"#app",       // ID
+            // el:".app",    // class
+            // el:"div",     // tag 标签选择器
+            data:{
+                message1:"VueNotes_Ji4ming",
+                message2:{
+                    instance1:"string1",
+                    instance2:"int1",
+                    instance3:["string1", "string2", "string3"]
+                },
+                message3:["stringA", "stringB", "stringC"],
+                message4:[1,2,3],
+                message5:"<a href='http://www.baidu.com'>href_baidu</a>",
+                message6:"click here",
+                isShow:true,
+                imgSrc:"pig1.jpg",
+                imgArr:["pig1.jpg", "pig2.jpg"],
+                imgIndex:0,
+                kilometers:0,
+                meters:0,
+                activeClass: 'active',
+                errorClass: 'text-danger',
+                activeColor:'green',
+                classObject: {
+                    active: true,
+                    'text-danger': true
+                },
+                styleObject: {
+                    color: 'green',
+                    fontSize: '30px'
+                }
+            },
+            methods:{
+                von1:function(){
+                    alert("this is usage of 'v-on'");
+                },
+                von2:function(){
+                    this.message6 += "XD"
+                },
+                von3:function(a,b){     // a,b 参数
+                    console.log(a);     // 文本框 test
+                    console.log(b);     // 文本框 test
+                    alert("this is usage of 'v-on'");
+                },
+                changeIsShow:function () {
+                    this.isShow = !this.isShow;
+                },
+                changeImgIndex:function () {
+                    if(this.imgIndex==0)
+                    {
+                        this.imgIndex=1;
+                    }else
+                    {
+                        this.imgIndex=0;
+                    }
+                },
+                addItemInArr:function () {
+                  this.message3.push("addedString");
+                },
+                removeItemInArr:function () {
+                    this.message3.shift();
+                },
+                getMessage:function () {
+                    alert(this.message1);
+                },
+                setMessage:function () {
+                    this.message1 = "VueNotes_Ji4ming_v1.0.1"
+                }
+
+                // axios and vue
+
+                // searchMusic:function () {
+                    // var that = this;
+                    // axios.get("/*link*/")"  // -> api
+                    //.then(function (response) {
+                        // console.log(response)
+                        // that.musicList = response.data.result.songs
+                    // },function (err) {})
+                // }
+
+
+
+            },
+            computed:{
+                // computed用来监控自己定义的变量，该变量不在data里面声明，直接在computed里面定义，然后就可以在页面上进行双向数据绑定展示出
+                // 结果或者用作其他处理；computed比较适合对多个变量或者对象进行处理后返回一个结果值，也就是数多个变量中的某一个值发生了变化则我
+                // 们监控的这个值也就会发生变化，举例：购物车里面的商品列表和总金额之间的关系，只要商品列表里面的商品数量发生变化，或减少或增多或
+                // 删除商品，总金额都应该发生变化。这里的这个总金额使用computed属性来进行计算是最好的选择
+
+                // computed -> 提升性能 -> 只有数据变化的时候才会执行
+                // 计算属性允许我们对指定的视图，复杂的值计算。这些值将绑定到依赖项值，只在需要时更新。
+
+                /* example shows below
+
+                fullName:{
+                    // getter
+                    get:function () {
+                        return this.firstName + ' ' + this.lastName
+                    },
+
+                    // setter
+                    set:function (newValue){
+                        var names = newValue.split(' ')
+                        this.firstName = names[0]
+                        this.lastName = names[names.length - 1]
+                    }
+                },
+
+                */
+            },
+            watch:{
+                kilometers:function(val) {
+                    this.kilometers = val;
+                    this.meters = this.kilometers * 1000
+                },
+                meters:function (val) {
+                    this.kilometers = val / 1000;
+                    this.meters = val;
+                }
+                // watch主要用于监控vue实例的变化，它监控的变量当然必须在data里面声明才可以，它可以监控一个变量，也可以是一个对象,当你需要在
+                // 数据变化响应时，执行异步操作，或高性能消耗的操作，那么watch为最佳选择
+                // watch一般用于监控路由、input输入框的值特殊处理等等，它比较适合的场景是一个数据影响多个数据
+            }
+
+        });
+
+        // $watch 是一个实例方法
+        // var.$watch('kilometers', function (newValue, oldValue) {
+            // 这个回调将在 vm.kilometers 改变后调用
+            // document.getElementById ("info").innerHTML = "修改前值为: " + oldValue + "，修改后值为: " + newValue;
+        // })
+    </script>
+</body>
+</html>
